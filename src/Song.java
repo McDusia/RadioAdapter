@@ -6,7 +6,7 @@ public class Song {
     private String author;
     private ArrayList <Byte> sound;
 
-    public void Song(String name, String author, ArrayList <Byte> sound)
+    public Song(String name, String author, ArrayList <Byte> sound)
     {
         this.name = name;
         this.author = author;

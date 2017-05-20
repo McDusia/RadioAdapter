@@ -5,11 +5,11 @@ public class CD {
     private List<Song> songList;
     private int currentSong;
 
-    public void CD(String title, List <Song> songList)
+    public CD(String title, List <Song> songList)
     {
         this.title = title;
         this.songList = songList;
-        currentSong = 0;
+        currentSong = 1;
     }
 
     public String getTitle() {
