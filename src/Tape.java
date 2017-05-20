@@ -1,19 +1,22 @@
-import java.util.List;
+import java.util.Map;
 
 public class Tape {
     private String title;
-    private List<Song> songList;
+    private Map<Song,Integer> songList;
 
-    public void Tape(List <Song> songList)
-    {
+    public Tape(String title, Map<Song, Integer> songList) {
+        this.title = title;
         this.songList = songList;
     }
+
+    public Map<Song, Integer> getSongList() {
+        return songList;
+    }
+
 
     public String getTitle() {
         return title;
     }
 
-    public List<Song> getSongList() {
-        return songList;
-    }
+
 }

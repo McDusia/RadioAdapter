@@ -1,11 +1,10 @@
 
-import java.util.concurrent.TimeUnit;
-
 
 public class Radio {
    private int radioProgram;
 
-   public void Radio(){
+   public Radio(){
+       //default programme
        radioProgram = 1;
    }
 

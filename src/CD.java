@@ -5,11 +5,11 @@ public class CD {
     private List<Song> songList;
     private int currentSong;
 
-    public CD(String title, List <Song> songList)
+    public CD(String title, List <Song> songsList)
     {
         this.title = title;
-        this.songList = songList;
-        currentSong = 1;
+        this.songList = songsList;
+        currentSong = 0;
     }
 
     public String getTitle() {
@@ -20,14 +20,17 @@ public class CD {
         return songList;
     }
 
-    public int getCurrentSong(){
-        return currentSong;
+    public String getCurrentSong(){
+        return songList.get(currentSong).getName() + "  " + songList.get(currentSong).getAuthor() ;
     }
+
     public void nextSong(){
         if(currentSong + 1 < songList.size())
             currentSong ++;
-        else
+        else {
             currentSong = 0;
+            System.out.print("Playing CD was reversed");
+        }
     }
 
 }

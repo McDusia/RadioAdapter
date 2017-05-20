@@ -1,7 +1,3 @@
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import javax.lang.model.type.NullType;
-
 public class Boombox {
 
     private boolean power;
@@ -51,20 +47,19 @@ public class Boombox {
 
         mode = Mode.CD;
         disc = d;
-        System.out.print("CD title: " + disc.getTitle()+ "\n");
-        System.out.print("Song title: " + disc.getCurrentSong() + "\n\n");
+        playCurrentSong();
     }
 
     public void stopPlayingCD()
     {
         if(!power){
             System.out.print("Power is off.");
-        }else if(mode != Mode.CD)
+        }else if(mode != Mode.CD) {
             System.out.print("Error - wrong mode");
+            printCurrentPlayed();
+        }
         else {
             System.out.print("Playing CD was stopped.");
-            //todo is it necessary to null disc inside the Radio
-            //disc = null;
             mode = Mode.Wait;
         }
     }
@@ -72,10 +67,19 @@ public class Boombox {
 
     public void nextSong()
     {
-        if(mode != Mode.CD || !power)
+        if(mode != Mode.CD || !power) {
             System.out.print("Error - You need to change to CD mode");
-        else
+            printCurrentPlayed();
+        }
+        else{
             disc.nextSong();
+            playCurrentSong();
+        }
+    }
+
+    private void playCurrentSong() {
+        System.out.print("CD title: " + disc.getTitle()+ "\n");
+        System.out.print("Song title: " + disc.getCurrentSong() + "\n\n");
     }
 
     public void playMemoryCard(MemoryCard givenCard)
@@ -90,8 +94,8 @@ public class Boombox {
                 memoryCard = givenCard;
                 }
             mode = Mode.MemoryCard;
-            System.out.print("Reading memory card");
-            System.out.print("Song title: " + memoryCard.getCurrentSong() + "\n\n");
+            System.out.print("Reading memory card \n");
+            System.out.print("Played song: " + memoryCard.getCurrentSong() + "\n\n");
         }
     }
 
@@ -122,10 +126,16 @@ public class Boombox {
         }
     }
 
+    private void printCurrentPlayed() {
+        System.out.print("I am playing mode" + mode + "\n");
+    }
+
 
     public void changeRadioProgram(int nr){
-        if(mode != Mode.Radio)
+        if(mode != Mode.Radio) {
             System.out.print("Error - Radio is not in radio mode.");
+            printCurrentPlayed();
+        }
         else {
             radio.changeProgram(nr);
             System.out.print("Radio station was changed." + radio.getRadioProgram());
