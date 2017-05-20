@@ -1,8 +1,5 @@
 import java.util.List;
 
-/**
- * Created by Madzia on 20.05.2017.
- */
 public class Tape {
     private String title;
     private List<Song> songList;
@@ -15,7 +12,7 @@ public class Tape {
     public String getTitle() {
         return title;
     }
-    
+
     public List<Song> getSongList() {
         return songList;
     }

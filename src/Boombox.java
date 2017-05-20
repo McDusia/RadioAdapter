@@ -1,15 +1,17 @@
+import javax.lang.model.type.NullType;
 
 public class Boombox {
 
     private boolean power;
     private Mode mode;
     private Radio radio;
-    //private CD disc;
+    private CD disc;
+    private Tape tape;
+
 
     public void Boombox()
     {
         power = false;
-        mode = Mode.Wait;
         radio = new Radio();
     }
 
@@ -17,8 +19,12 @@ public class Boombox {
     {
         if(power)
             System.out.print("Error - Radio is turned on");
-        else
+        else {
+            mode = Mode.Wait;
             power = true;
+            disc = null;
+            tape = null;
+        }
     }
 
     public void off()
@@ -26,15 +32,17 @@ public class Boombox {
         power = false;
     }
 
-    public void playCD(CD disc)
+    public void playCD(CD d)
     {
         if(!power)
             return;
 
         mode = Mode.CD;
-
+        CD disc = d;
         System.out.print("Playing CD");
         System.out.print(disc.getTitle());
+
+        disc.getCurrentSong();
 
         /*for(Song s : disc.getSongList()) {
             System.out.print(s.getName()+ "\n" + s.getAuthor());
@@ -44,22 +52,21 @@ public class Boombox {
         }*/
     }
 
-    public void stopCD(CD disc)
+    public void stopCD()
     {
         if(!power)
             return;
         if(mode != Mode.CD)
             System.out.print("Error - wrong mode");
-
+        disc = null;
         mode = Mode.Wait;
     }
 
     public void nextSong()
     {
-        //??
         if(mode != Mode.CD)
             System.out.print("Error - change to CD mode");
-
+        disc.nextSong();
     }
 
     public void playMemoryCard(MemoryCard card)

@@ -12,6 +12,7 @@ public class Song {
         this.author = author;
         this.sound = sound;
     }
+
     public String getName() {
         return name;
     }
