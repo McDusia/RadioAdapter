@@ -59,12 +59,12 @@ public class Boombox {
     {
         if(!power){
             System.out.print("Power is off.");
-            return;
         }else if(mode != Mode.CD)
             System.out.print("Error - wrong mode");
         else {
             System.out.print("Playing CD was stopped.");
-            disc = null;
+            //todo is it necessary to null disc inside the Radio
+            //disc = null;
             mode = Mode.Wait;
         }
     }
@@ -78,11 +78,17 @@ public class Boombox {
             disc.nextSong();
     }
 
-    public void playMemoryCard(MemoryCard card)
+    public void playMemoryCard(MemoryCard givenCard)
     {
         if(!power){
             System.out.print("Power is off. I can't play music from memory card.");
         }else {
+            if(memoryCard == null && givenCard == null ){
+                System.out.print("I have no tape to play from.");
+                return;
+            }else if(givenCard != null){
+                memoryCard = givenCard;
+                }
             mode = Mode.MemoryCard;
             System.out.print("Reading memory card");
             System.out.print("Song title: " + memoryCard.getCurrentSong() + "\n\n");
@@ -96,11 +102,12 @@ public class Boombox {
         }else {
             if(tape == null && givenTape == null){
                 System.out.print("There is no tape to play.");
-            }else if(givenTape!= null){
-                mode = Mode.Tape;
-                System.out.print("I am playing music from tape named:" + tape.getTitle());
-            }else
-                System.out.print("I am playing music from tape named:" + tape.getTitle());
+                return;
+            }else if(givenTape!= null) {
+                tape = givenTape;
+                }
+            mode = Mode.Tape;
+            System.out.print("I am playing music from tape named:" + tape.getTitle() + "\n\n");
         }
     }
 
@@ -108,18 +115,21 @@ public class Boombox {
     {
         if(!power){
             System.out.print("Power is off. I can't play Radio.");
-            return;}
-        mode = Mode.Radio;
-        System.out.print("Playing the radio");
-        System.out.print("Station: " + radio.getRadioProgram());
+        }else {
+            mode = Mode.Radio;
+            System.out.print("Playing the radio");
+            System.out.print("Station: " + radio.getRadioProgram());
+        }
     }
 
 
     public void changeRadioProgram(int nr){
         if(mode != Mode.Radio)
             System.out.print("Error - Radio is not in radio mode.");
-        radio.changeProgram(nr);
-        System.out.print("Radio station was changed.");
+        else {
+            radio.changeProgram(nr);
+            System.out.print("Radio station was changed." + radio.getRadioProgram());
+        }
     }
 
     public void pause(){
