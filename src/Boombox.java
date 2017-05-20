@@ -9,12 +9,16 @@ public class Boombox {
     private Radio radio;
     private CD disc;
     private Tape tape;
+    private MemoryCard memoryCard;
 
 
     public Boombox()
     {
         power = false;
-        //radio = new Radio();
+        disc = null;
+        tape = null;
+        radio = new Radio();
+        memoryCard = null;
     }
 
     public void on()
@@ -25,9 +29,6 @@ public class Boombox {
             System.out.print("Boombox is on.\n");
             mode = Mode.Wait;
             power = true;
-            disc = null;
-            tape = null;
-            radio = new Radio();
         }
     }
 
@@ -61,16 +62,17 @@ public class Boombox {
             return;
         }else if(mode != Mode.CD)
             System.out.print("Error - wrong mode");
-
-        System.out.print("Playing CD was stopped.");
-        disc = null;
-        mode = Mode.Wait;
+        else {
+            System.out.print("Playing CD was stopped.");
+            disc = null;
+            mode = Mode.Wait;
+        }
     }
 
 
     public void nextSong()
     {
-        if(mode != Mode.CD)
+        if(mode != Mode.CD || !power)
             System.out.print("Error - You need to change to CD mode");
         else
             disc.nextSong();
@@ -80,28 +82,26 @@ public class Boombox {
     {
         if(!power){
             System.out.print("Power is off. I can't play music from memory card.");
-            return;
-        }
-
-        mode = Mode.MemoryCard;
-        System.out.print("Reading memory card");
-        System.out.print("Card reading failure");
-        //??
-        for(Song s : card.getSongList()) {
-            System.out.print(s.getName()+ "\n" + s.getAuthor());
-
-            for(Byte b : s.getSound())
-                System.out.print(b.toString());
+        }else {
+            mode = Mode.MemoryCard;
+            System.out.print("Reading memory card");
+            System.out.print("Song title: " + memoryCard.getCurrentSong() + "\n\n");
         }
     }
 
-    public void playTape()
+    public void playTape(Tape givenTape)
     {
-        if(!power){
+        if(!power) {
             System.out.print("Power is off. I can't play tape");
-            return;}
-        mode = Mode.Tape;
-
+        }else {
+            if(tape == null && givenTape == null){
+                System.out.print("There is no tape to play.");
+            }else if(givenTape!= null){
+                mode = Mode.Tape;
+                System.out.print("I am playing music from tape named:" + tape.getTitle());
+            }else
+                System.out.print("I am playing music from tape named:" + tape.getTitle());
+        }
     }
 
     public void playRadio()

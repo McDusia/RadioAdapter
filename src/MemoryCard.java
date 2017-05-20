@@ -13,4 +13,8 @@ public class MemoryCard {
         return songList;
     }
 
+    public String getCurrentSong() {
+    return "asia";}
+
+    //todo current song itp
 }
