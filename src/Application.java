@@ -21,6 +21,10 @@ public class Application {
         box.nextSong();
         MemoryCard memoryCard = new MemoryCard(songs);
         box.playMemoryCard(memoryCard);
+        Tape tape = new Tape("Classical Music", new Song("ALbum", "Chris"), new Song("ALbum2", "Karoline"),TapeSide.LEFT);
+        box.playTape(tape);
+        box.changeSide();
+        box.playTape(null);
     }
 
 

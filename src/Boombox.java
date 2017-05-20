@@ -111,8 +111,16 @@ public class Boombox {
                 tape = givenTape;
                 }
             mode = Mode.Tape;
-            System.out.print("I am playing music from tape named:" + tape.getTitle() + "\n\n");
+            playTapeSide(tape.getSide());
         }
+    }
+
+    private void playTapeSide(TapeSide side) {
+        System.out.print("I am playing music from tape named:" + tape.getTitle() + "\n\n");
+        if(side == TapeSide.LEFT){
+            System.out.print("I am playing songs " + tape.getSongsLeft().getName() + "\n\n");
+        }else
+            System.out.print("I am playing songs " + tape.getSongsRight().getName() + "\n\n");
     }
 
     public void playRadio()
@@ -145,5 +153,16 @@ public class Boombox {
     public void pause(){
         mode = Mode.Wait;
         System.out.print("Pause...");
+    }
+
+    public void changeSide(){
+        if(mode != Mode.Tape) {
+            System.out.print("Error - Radio is not in tape mode.");
+            printCurrentPlayed();
+        }
+        else {
+            tape.changeSide();
+            System.out.print("Tape side was changed.");
+        }
     }
 }
